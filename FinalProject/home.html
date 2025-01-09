@@ -1,0 +1,283 @@
+
+<div id="carouselExampleControls" class="carousel slide mt-3 container" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="Image/banner1.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://marketplace.canva.com/EAFHG6sbLsQ/1/0/1600w/canva-brown-beige-simple-special-sale-banner-lQfPvhnznqs.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="Image/banner3.webp" class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <article class="container p-2">
+        <h1 class="text-start mt-5">NEW PRODUCTS</h1>
+        <div class="box-card mt-3">
+            <div class="row" id="newProduct">
+
+            </div>
+        </div>
+  </article>
+  <article class="container p-2">
+        <h1 class="text-start mt-5">PROMOTION PRODUCTS</h1>
+        <div class="box-card mt-3">
+            <div class="row" id="promotionProduct"></div>
+        </div>
+  </article>
+  <article class="container p-2">
+        <h1 class="text-start mt-5">POPULAR PRODUCTS</h1>
+        <div class="box-card mt-3">
+            <div class="row" id="pop"></div>
+        </div>
+  </article>
+  <script type="module">
+    import {products} from './product.js';
+    products.reverse();
+    $(document).ready(function(){
+        function newProduct(){
+            let count=1;
+            let product='';
+            products.forEach(e=>{
+                if(count<=4){
+                    if(e.reqular_price==0){
+                        product+=`
+                             <div class="col-6 col-sm-6 col-xl-3">
+                                <div class="cards" id_pro="${e.id}">
+                                    <div class="image">
+                                        <img src="${e.image}" alt="">
+                                    </div>
+                                    <div class="title">
+                                        <span>Price :$${e.sale_price}</span>
+                                        <p>${e.title}</p>
+                                        <div class="icon d-flex gap-1">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }else{
+                        product+=`
+                             <div class="col-6 col-sm-6 col-xl-3">
+                            <div class="cards" id_pro="${e.id}">
+                                
+                                <div class="image">
+                                    <p id="promo">Promotion</p>
+                                    <img src="${e.image}" alt="">
+                                </div>
+                                <div class="title">
+                                    <span>Price :$${e.sale_price}</span>
+                                    <span>Price :$<del>${e.reqular_price}</del></span>
+                                    <p>Cross Training T-Shirt</p>
+                                    <div class="icon d-flex gap-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            `;
+                    }  
+                }
+                count++;
+            })
+            $('.row#newProduct').html(product)
+        }
+        newProduct()
+        function promotionProduct(){
+            let count=1;
+            let product='';
+            products.forEach(e=>{
+                if(e.reqular_price!=0){
+                    if(count<=4){
+                        product+=`
+                             <div class="col-6 col-sm-6 col-xl-3">
+                            <div class="cards" id_pro="${e.id}">
+                                
+                                <div class="image">
+                                    <p id="promo">Promotion</p>
+                                    <img src="${e.image}" alt="">
+                                </div>
+                                <div class="title">
+                                    <span>Price :$${e.sale_price}</span>
+                                    <span>Price :$<del>${e.reqular_price}</del></span>
+                                    <p>Cross Training T-Shirt</p>
+                                    <div class="icon d-flex gap-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            `;
+                    }
+                    count++;
+                }
+                
+            })
+            $('.row#promotionProduct').html(product)
+        }
+        promotionProduct()
+        function popularProduct(){
+            products.sort((a,b)=>b.views-a.views);
+            // console.log(products);
+            let count=1;
+            let product='';
+            products.forEach(e=>{
+                if(count<=4){
+                    if(e.reqular_price==0){
+                        product+=`
+                             <div class="col-6 col-sm-6 col-xl-3">
+                                <div class="cards" id_pro="${e.id}">
+                                    <div class="image">
+                                        <img src="${e.image}" alt="">
+                                    </div>
+                                    <div class="title">
+                                        <span>Price :$${e.sale_price}</span>
+                                        <p>${e.title}</p>
+                                        <div class="icon d-flex gap-1">
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                            <i class="bi bi-star-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    }else{
+                        product+=`
+                             <div class="col-6 col-sm-6 col-xl-3">
+                            <div class="cards" id_pro="${e.id}">
+                                <div class="image">
+                                    <p id="promo">Promotion</p>
+                                    <img src="${e.image}" alt="">
+                                </div>
+                                <div class="title">
+                                    <span>Price :$${e.sale_price}</span>
+                                    <span>Price :$<del>${e.reqular_price}</del></span>
+                                    <p>Cross Training T-Shirt</p>
+                                    <div class="icon d-flex gap-1">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                            `;
+                    }  
+                }
+                count++;
+            })
+            $('.row#pop').html(product)
+        }
+        popularProduct()
+        $('.cards').click(function(){
+            var pro='';
+            const id=$(this).attr('id_pro');
+            products.forEach(e=>{
+                if(e.id==id){
+                   if(e.reqular_price!=0){
+                    pro=`
+                    <div class="container">
+                        <div class="row m-3">
+                            <div class="col-4" >
+                                <img style="width: 400px;" src="${e.image}" alt="">
+                            </div>
+                            <div class="col-8 ps-5">
+                                <h1>${e.title}</h1>
+                                <ul>
+                                    <li><h4>Price</h4>
+                                        <del  class="text-danger"><h3 class="ms-5">-$ ${e.reqular_price}</h3></del>
+                                        <span><h3 class="text-success ms-5">-$ ${e.sale_price}</h3></span>
+                                    </li>
+                                    <li><h4>CATEGORY</h4>
+                                        <span><h4 class="ms-5 text-secondary">-${e.category}</h4></span>
+                                    </li>
+                                    <li><h4>COLOR</h4>
+                                        <span><h4 class="ms-5 text-secondary">-${e.color}</h4></span>
+                                    </li>
+                                    <li><h4>SIZE</h4>
+                                        <span><h4 class="ms-5 text-secondary">-${e.size}</h4></span>
+                                    </li>
+                                    <li><h4>BUY</h4>
+                                        <div class="form-group d-flex gap-3">
+                                            <input type="number" class="form-control " value="1" style="width: 70px; font-size: 18px;" name="" id="">
+                                            <button class="btn btn-primary">Buy</button>
+                                        </div>
+                                    </li>
+                                    <li class="mt-2"><h4>DESCRIPTION</h4>
+                                        <span><h4 class="ms-5 text-secondary">${e.description}</h4></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                   `;
+                   }else{
+                    pro=`
+                    <div class="container">
+                        <div class="row m-3">
+                            <div class="col-4" >
+                                <img style="width: 400px;" src="${e.image}" alt="">
+                            </div>
+                            <div class="col-8 ps-5">
+                                <h1>${e.title}</h1>
+                                <ul>
+                                    <li><h4>Price</h4>
+                                        <span><h3 class="text-success ms-5">-$ ${e.sale_price}</h3></span>
+                                    </li>
+                                    <li><h4>CATEGORY</h4>
+                                        <span><h4 class="ms-5 text-secondary">-${e.category}</h4></span>
+                                    </li>
+                                    <li><h4>COLOR</h4>
+                                        <span><h4 class="ms-5 text-secondary">-${e.color}</h4></span>
+                                    </li>
+                                    <li><h4>SIZE</h4>
+                                        <span><h4 class="ms-5 text-secondary">-${e.size}</h4></span>
+                                    </li>
+                                    <li><h4>BUY</h4>
+                                        <div class="form-group d-flex gap-3">
+                                            <input type="number" class="form-control " value="1" style="width: 70px; font-size: 18px;" name="" id="">
+                                            <button class="btn btn-primary">Buy</button>
+                                        </div>
+                                    </li>
+                                    <li class="mt-2"><h4>DESCRIPTION</h4>
+                                        <span><h4 class="ms-5 text-secondary">${e.description}</h4></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                   `;
+                   }
+                }
+            })
+            $('section').html(pro)
+        })
+    })
+  </script>
